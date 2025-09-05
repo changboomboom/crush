@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xin lỗi bé iu 💖</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(135deg, #ffe6f0, #ffcce0);
+      text-align: center;
+      color: #d63384;
+      overflow-x: hidden;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: #e60073;
+      text-shadow: 2px 2px 6px rgba(255, 0, 100, 0.2);
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #ff1a8c;
+      text-shadow: 2px 2px 8px rgba(255, 0, 150, 0.3);
+    }
+
+    .buttons {
+      margin: 20px;
+    }
+
+    button {
+      padding: 15px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.3s ease, background 0.3s;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    #acceptBtn {
+      background-color: #ff4da6;
+      color: white;
+    }
+
+    #acceptBtn:hover {
+      background-color: #ff1a8c;
+    }
+
+    #denyBtn {
+      background-color: #999;
+      color: white;
+    }
+
+    #denyBtn:hover {
+      background-color: #666;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .love-img {
+      width: 320px;
+      margin-top: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(255, 0, 100, 0.3);
+    }
+
+    .heart {
+      position: fixed;
+      color: red;
+      font-size: 24px;
+      animation: floatUp 3s linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-800px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="message">Bé iu ơi, anh xin lỗi 🥺🙏💖</h1>
+    <div class="buttons">
+      <button id="acceptBtn">Em chấp nhận 💖</button>
+      <button id="denyBtn">Không đồng ý 😢</button>
+    </div>
+    <div id="loveSection" class="hidden">
+      <img src="https://i.imgur.com/8Km9tLL.jpg" alt="I Love You" class="love-img" />
+      <h2>I love you sooo much 😘🥰❤️💘💕💓💖💞</h2>
+    </div>
+  </div>
+  <audio id="bgMusic" src="https://www.w3schools.com/html/horse.mp3" autoplay loop></audio>
+  <script>
+    const messages = [
+      "Anh biết lỗi rồi ạ, mong bé tha lỗi cho anh nhaaaa 🥺🙏💖",
+      "Anh hứa sẽ không làm bé buồn nữa đâu 😭💔👉👈",
+      "Tha cho anh đi mà, bé iu dễ thương nhất trên đời 🥹💕",
+      "Anh thương bé nhất quả đất này, đừng giận anh nữa nha 😢❤️",
+      "Nếu bé tha thứ, anh sẽ chở bé đi ăn trà sữa liền 😍🧋💞",
+      "Anh xin lỗi thiệt nhiều nhiều nhiều luôn 😭💘💖",
+      "Bé iu ơi, cho anh cơ hội sửa sai nha 🥺🌹",
+      "Anh nhớ bé quá, đừng giận anh lâu mà 😢💞",
+      "Anh biết lỗi rồi ạ, mong bé tha lỗi cho anh nhaaaa 🥺🙏💖",
+      "Xin lỗi công chúa nhỏ của anh, tha cho anh đi mà 👑🥺💖"
+    ];
+
+    let index = 0;
+    let denySize = 1;
+    let acceptSize = 1;
+
+    const messageEl = document.getElementById("message");
+    const denyBtn = document.getElementById("denyBtn");
+    const acceptBtn = document.getElementById("acceptBtn");
+    const loveSection = document.getElementById("loveSection");
+
+    denyBtn.addEventListener("click", () => {
+      index = (index + 1) % messages.length;
+      typeWriter(messages[index]);
+
+      denySize *= 0.9; // nhỏ lại
+      acceptSize *= 1.1; // to lên
+
+      denyBtn.style.transform = `scale(${denySize})`;
+      acceptBtn.style.transform = `scale(${acceptSize})`;
+    });
+
+    acceptBtn.addEventListener("click", () => {
+      loveSection.classList.remove("hidden");
+      spawnHearts();
+    });
+
+    function typeWriter(text) {
+      let i = 0;
+      messageEl.innerHTML = "";
+      const speed = 50;
+      function typing() {
+        if (i < text.length) {
+          messageEl.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+
+    function spawnHearts() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        document.body.appendChild(heart);
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 20 + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+    }
+  </script>
+</body>
+</html>
